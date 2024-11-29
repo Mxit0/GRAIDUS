@@ -1,0 +1,70 @@
+# Configuración general de NEAT
+[NEAT]
+# Criterio de fitness. Se maximiza el puntaje obtenido en el juego.
+fitness_criteria = max
+# Tamaño de la población por generación
+pop_size = 150
+# Número máximo de generaciones a ejecutar
+max_gen = 1000
+# Puntaje mínimo para continuar el entrenamiento
+min_fitness = 100.0
+# Puntaje objetivo para detener el entrenamiento
+target_fitness = 1000.0
+# Número de generaciones sin mejora para que se considere el entrenamiento estancado
+stagnation = 15
+# Edad máxima de un organismo para ser considerado estancado
+stagnation_age = 20
+
+# Reproducción y selección
+[Reproduction]
+# Umbral de compatibilidad genética para definir si dos organismos son parte de la misma especie
+compatibility_threshold = 3.0
+# Número de organismos mejores (elite) que pasan a la siguiente generación sin cambios
+elitism = 2
+# Tasa de cruzamiento entre organismos
+crossover_rate = 0.7
+# Número de padres seleccionados para la reproducción (cruzamiento)
+num_parents = 2
+
+# Genes y redes neuronales
+[Genome]
+# Número de entradas para la red neuronal: 88x88 píxeles (imagen de entrada procesada en escala de grises)
+input_nodes = 7744  # Asumiendo imágenes de 88x88 píxeles en escala de grises
+# Número de salidas de la red: 12 posibles botones de acción
+output_nodes = 12
+
+# Mutación y habilidades de la red
+[Mutation]
+# Probabilidad de mutar la estructura de la red neuronal (agregar nodos o conexiones)
+node_mutate_rate = 0.01
+connection_mutate_rate = 0.1
+enable_mutate_rate = 0.01
+# Probabilidad de que el peso de la conexión se muta
+weight_mutate_rate = 0.8
+# Rango de mutación de peso de las conexiones
+weight_mutate_power = 1.0
+weight_mutate_min = -3.0
+weight_mutate_max = 3.0
+
+# Especiación y envejecimiento
+[Species]
+# Umbral de compatibilidad genética para considerar que dos organismos pertenecen a la misma especie
+speciation_threshold = 5.0
+# Tamaño de la población dentro de cada especie
+species_pop_size = 15
+
+# Evaluación y entrenamiento
+[Evaluator]
+# Cada cuántas generaciones se evalúa el rendimiento del modelo
+evaluation_interval = 10
+# Número máximo de pasos (ticks) por organismo durante el entrenamiento antes de ser evaluado
+max_ticks = 10000
+# Cada cuántos pasos se evalúa el rendimiento del organismo
+evaluation_interval_ticks = 100
+
+# Configuración de control y visualización
+[Control]
+# Determina si se ejecutará el entorno de forma visual durante el entrenamiento
+visualize = false
+# Número de pasos de la simulación para cada evaluación
+max_simulation_steps = 10000
