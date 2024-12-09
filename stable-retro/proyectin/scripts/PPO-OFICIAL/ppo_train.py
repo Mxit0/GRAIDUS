@@ -78,7 +78,7 @@ def main():
 
     print(f"Inicio del entrenamiento: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
 
-    env_num = 6
+    env_num = 4
     # Crear env_num ambientes paralelos usando SubprocVecEnv
     env = SubprocVecEnv([lambda idx=i: make_env() for i in range(env_num)])  # Crear env_num entornos
 
@@ -101,7 +101,7 @@ def main():
     eval_callbacks = [EvalCallback(start_time=start_time, verbose=1, log_interval=5000) for _ in range(env_num)]
 
     # Entrenar el modelo con el callback
-    model.learn(total_timesteps=1900800, log_interval=1, callback=eval_callbacks)
+    model.learn(total_timesteps=1000, log_interval=1, callback=eval_callbacks)
 
     # Guardar el modelo entrenado
     model.save("ppo_gradius_model")
