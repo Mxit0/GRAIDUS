@@ -80,6 +80,20 @@ class EvalCallback(BaseCallback):
             writer = csv.writer(file)
             writer.writerow([self.times_in_minutes[-1], self.scores[-1]])
 
+    def plot_and_save_graph(self):
+        """Generar y guardar un gráfico de Puntaje vs Tiempo."""
+        plt.figure(figsize=(10, 6))
+        plt.plot(self.times_in_minutes, self.scores, label="Puntaje")
+        plt.xlabel("Tiempo (minutos)")
+        plt.ylabel("Puntaje")
+        plt.title("Puntaje vs Tiempo durante el entrenamiento")
+        plt.grid(True)
+        plt.legend()
+
+        # Guardar el gráfico como imagen
+        plt.savefig("score_vs_time.png")
+        print("Gráfico guardado como 'score_vs_time.png'")
+
 def main():
     # Registrar el tiempo de inicio
     start_time = time.time()
@@ -109,7 +123,7 @@ def main():
     eval_callback = EvalCallback(start_time=start_time, verbose=1, log_interval=5000)
 
     # Entrenar el modelo con el callback
-    model.learn(total_timesteps=1900800, log_interval=1, callback=eval_callback)
+    model.learn(total_timesteps=1000, log_interval=1, callback=eval_callback)
 
     # Guardar el modelo entrenado
     model.save("a2c_gradius_model")
@@ -123,6 +137,9 @@ def main():
 
     # Guardar los datos en un archivo CSV
     save_training_data(unified_times, unified_scores, filename="training_data.csv")
+
+    # Generar y guardar el gráfico
+    eval_callback.plot_and_save_graph()
 
     env.close()
 
